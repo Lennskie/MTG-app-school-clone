@@ -14,11 +14,5 @@ namespace mtg_app.Controllers
         }
         **/
         //this is a comment because otherwise you'd constantly get this view
-
-        public IActionResult Collection()
-        {
-            return View();
-        }
-
     }
 }
