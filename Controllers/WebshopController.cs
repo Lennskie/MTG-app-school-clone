@@ -4,11 +4,9 @@ using mtg_app.Models;
 //using mtg_lib.Library.Services;
 
 namespace mtg_app.Controllers;
-[Route("")]
 public class WebshopController : Controller {
     //private ListingService ls = new ListingService();
 
-    [Route("")]
     [Route("[action]")]
     public IActionResult showListings(){
         //return View(ls.getListings());
@@ -19,6 +17,6 @@ public class WebshopController : Controller {
     public IActionResult showListingByListingId(){
         //parameter listingId toevoegen in functie
         //return View(ls.getListingbyListingId(listingId));
-        return View();
+            return View();
     }
 }
