@@ -2,4 +2,13 @@
 
 @*Header met master view*@
 <h1>WIP: LANDING PAGE</h1>
+
+@if(User.Identity.IsAuthenticated)
+{
+    <p>
+        Congrats, you have are authenticated!
+    </p> 
+}
+
+
 @*Footer met master view*@
