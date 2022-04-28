@@ -1,0 +1,37 @@
+@{
+    ViewData["Title"] = "Cards";
+}
+
+@model mtg_app.Models.Card.CardsViewModel;
+
+<header>
+    
+    <div class="text-center">
+        <h1 class="display-4">All Cards</h1>
+    </div>
+    
+</header>
+
+<body>
+    <div>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>@Model.ColumnCardName</th>
+                    <th>@Model.ColumnCardType</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+        
+        @foreach (var card in Model.Cards) {
+                <tr>
+                    <td>@card.Name</td>
+                    <td>@card.Type</td>
+                </tr>
+            }
+            
+            </tbody>
+        </table>
+    </div>
+</body>
