@@ -26,7 +26,7 @@
         
         @foreach (var card in Model.Cards) {
                 <tr>
-                    <td>@card.Name</td>
+                    <td><a asp-action="SingleCard" asp-route-categoryId="@card.CardId">@card.Name</a></td>
                     <td>@card.Type</td>
                 </tr>
             }

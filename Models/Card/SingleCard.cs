@@ -1,11 +1,11 @@
 ﻿namespace mtg_app.Models.Card;
 
-public class CardViewModel
+public class SingleCard
 {
     
-    public string? CardId { get; set; }
+    public string? ImageUrl { get; set; }
+    
     public string? Name { get; set; }
     
     public string? Type { get; set; }
-
 }
