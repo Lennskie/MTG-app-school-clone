@@ -1,0 +1,53 @@
+@{
+    ViewData["Title"] = "Cards";
+}
+
+@model mtg_app.Models.Card.CardsViewModel;
+
+<header>
+    
+    <div class="text-center">
+        <h1 class="display-4">All Cards</h1>
+    </div>
+    
+</header>
+
+<body>
+    <div>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Model.ColumnCardName</th>
+                    <th>@Model.ColumnCardType</th>
+                    <th>@Model.ColumnCardVariations</th>
+                    <th>@Model.ColumnCardInCollection</th>
+                </tr>
+            </thead>
+            <tbody>
+        
+        
+        @foreach (var card in Model.Cards) {
+                <tr class="text-center">
+                    <td><a asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></td>
+                    <td>@card.Type</td>
+                    
+                    <td>@card.Variations</td>
+                    
+                    @{
+                        if (@card.InCollection)
+                        {
+                            <td>✅</td>
+                        }
+                        else
+                        {
+                            <td>⭕</td>
+                        }
+                    }
+                    
+                </tr>
+            }
+            
+            </tbody>
+        </table>
+    </div>
+</body>
