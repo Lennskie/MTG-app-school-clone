@@ -8,4 +8,8 @@ public class SingleCard
     public string? Name { get; set; }
     
     public string? Type { get; set; }
+    
+    
+    public List<string>? Variations { get; set; }
+    
 }

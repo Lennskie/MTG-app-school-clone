@@ -26,11 +26,16 @@ namespace mtg_app.Controllers
                 PageTitle = "Cards",
                 ColumnCardName = "Card Name",
                 ColumnCardType = "Card Type",
+                ColumnCardVariations = "Card Variations",
+                ColumnCardInCollection = "Card Collection Status",
                 Cards = cardService.GetSetAmountOfCards(50).Select(c => new CardViewModel
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
-                    Type = c.Type
+                    Type = c.Type,
+                    // TODO: Dynamically decide on the amount of variations for a card
+                    Variations = 0,
+                    InCollection = false
                 }).ToList()
             });
 
@@ -48,7 +53,8 @@ namespace mtg_app.Controllers
             {
                 ImageUrl = card?.OriginalImageUrl,
                 Name = card?.Name,
-                Type = card?.Type
+                Type = card?.Type,
+                Variations = cardService.RetrieveMtgIdsFromString(card)
             });
 
 

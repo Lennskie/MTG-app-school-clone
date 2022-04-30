@@ -20,6 +20,25 @@
             <dl class="text-right">
                 <dt>Type:</dt>
                 <dd>@Model.Type</dd>
+                
+                <dt>Variations:</dt>
+
+                @{
+                    if (@Model.Variations.Capacity != 0)
+                    {
+                        <ul>
+                                @foreach (var mtgid in @Model.Variations)
+                                {
+                                    <il><a asp-action="SingleCard" asp-route-cardId="@mtgid">Card Variation</a></il>
+                                }
+                        </ul>
+                    }
+                    else
+                    {
+                        <dd>This card doesn't have any variants!</dd>
+                    }
+                }
+                
             </dl>
         </div>
     </div>

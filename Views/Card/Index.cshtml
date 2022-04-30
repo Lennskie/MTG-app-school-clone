@@ -16,18 +16,34 @@
     <div>
         <table class="table">
             <thead>
-                <tr>
+                <tr class="text-center">
                     <th>@Model.ColumnCardName</th>
                     <th>@Model.ColumnCardType</th>
+                    <th>@Model.ColumnCardVariations</th>
+                    <th>@Model.ColumnCardInCollection</th>
                 </tr>
             </thead>
             <tbody>
         
         
         @foreach (var card in Model.Cards) {
-                <tr>
+                <tr class="text-center">
                     <td><a asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></td>
                     <td>@card.Type</td>
+                    
+                    <td>@card.Variations</td>
+                    
+                    @{
+                        if (@card.InCollection)
+                        {
+                            <td>✅</td>
+                        }
+                        else
+                        {
+                            <td>⭕</td>
+                        }
+                    }
+                    
                 </tr>
             }
             

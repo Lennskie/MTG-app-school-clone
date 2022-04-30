@@ -9,6 +9,10 @@ public class CardsViewModel
     
     public string? ColumnCardType { get; set; }
 
+    public string? ColumnCardInCollection { get; set; }
+    
+    public string? ColumnCardVariations { get; set; }
+    
     public List<CardViewModel>? Cards { get; set; }
     
     
