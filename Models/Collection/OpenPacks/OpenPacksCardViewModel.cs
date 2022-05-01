@@ -7,6 +7,9 @@ public class OpenPacksCardViewModel
     public string? Name { get; set; }
     
     public string? Type { get; set; }
+    
+    
+    public string? RarityCode { get; set; }
 
     public bool NewCard { get; set; }
     

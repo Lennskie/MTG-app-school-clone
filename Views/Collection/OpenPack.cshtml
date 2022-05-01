@@ -29,6 +29,7 @@
     <tr class="text-center">
         <th>@Model.ColumnCardName</th>
         <th>@Model.ColumnCardType</th>
+        <th>@Model.ColumnRarity</th>
         <th>@Model.ColumnNewCard</th>
     </tr>
     </thead>
@@ -40,6 +41,8 @@
         <tr class="text-center">
             <td><a asp-controller="Card" asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></td>
             <td>@card.Type</td>
+            
+            <td>@card.RarityCode</td>
 
             @{
                 if (@card.NewCard)

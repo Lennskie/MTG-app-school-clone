@@ -41,16 +41,16 @@ namespace mtg_app.Controllers
                 Name = c.Name,
                 Type = c.Type,
                 NewCard = true,
+                RarityCode = c.RarityCode,
                 ImageUrl = c.OriginalImageUrl,
             }).ToList();
 
-            Console.WriteLine("Cards: " + cardsInPack);
-            
             return View(new OpenPacksViewModel
             {
                 PageTitle = "Open Pack",
                 ColumnCardName = "Card Name",
                 ColumnCardType = "Card Type",
+                ColumnRarity = "Card Rarity Code",
                 ColumnNewCard = "New Card",
                 Cards = filteredCardsInPack
             });
