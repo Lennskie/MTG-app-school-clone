@@ -16,3 +16,17 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+#card_carousel {
+  display: flex;
+  overflow-x: scroll;
+  align-items: center;
+  align-content: center;
+}
+
+#carousel_item {
+  border: 2px solid purple;
+  padding: 2rem;
+  margin: 0 0.5rem 2rem 0.5rem;
+  border-radius: 5px;
+}

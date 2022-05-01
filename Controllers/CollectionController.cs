@@ -1,19 +1,63 @@
 
 using Microsoft.AspNetCore.Mvc;
+using mtg_app.Models.Collection.OpenPacks;
+using mtg_lib.Library.Models;
+using mtg_lib.Library.Services;
 
 namespace mtg_app.Controllers
 {
-    [Route("")]
+
+    
     [Route("[controller]")]
     public class CollectionController : Controller
     {
-        /**
-        public IActionResult Collection()
+        
+        CardService cardService = new CardService();
+        private PackService packService = new PackService();
+        
+        [Route("")]
+        [Route("[action]")]
+        public IActionResult Index()
+        {
+            return View();
+
+        }
+
+        
+        [Route("[action]")]
+        public IActionResult Packs()
         {
             return View();
         }
-        **/
-        //this is a comment because otherwise you'd constantly get this view
+        
+        [Route("packs/[action]")]
+        public IActionResult OpenPack()
+        {
+            IEnumerable<Card> cardsInPack = packService.CreateRandomPack("");
+
+            List<OpenPacksCardViewModel> filteredCardsInPack = cardsInPack.Select(c => new OpenPacksCardViewModel
+            {
+                CardId = c.MtgId,
+                Name = c.Name,
+                Type = c.Type,
+                NewCard = true,
+                ImageUrl = c.OriginalImageUrl,
+            }).ToList();
+
+            Console.WriteLine("Cards: " + cardsInPack);
+            
+            return View(new OpenPacksViewModel
+            {
+                PageTitle = "Open Pack",
+                ColumnCardName = "Card Name",
+                ColumnCardType = "Card Type",
+                ColumnNewCard = "New Card",
+                Cards = filteredCardsInPack
+            });
+        }
+        
+        
+        
 
     }
 }
