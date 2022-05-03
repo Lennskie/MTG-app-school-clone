@@ -1,4 +1,4 @@
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mtg_app.Models.Collection.OpenPacks;
 using mtg_lib.Library.Models;
