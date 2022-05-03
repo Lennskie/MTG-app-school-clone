@@ -1,0 +1,65 @@
+﻿@{
+    ViewData["Title"] = "Open Pack";
+}
+@model mtg_app.Models.Collection.OpenPacks.OpenPacksViewModel;
+
+<header>
+    <!--autogen header here-->
+
+    <div class="text-center">
+        <h1 class="display-4">Open Pack</h1>
+        <p>Here you can open your pack:</p>
+    </div>
+</header>
+<body>
+
+<div id="card_carousel" >
+    @foreach (var card in @Model.Cards)
+    {
+        <div id="carousel_item" class="border-2 border-dark p-2 mb-2" >
+            <div class="img"> <img src="@card.ImageUrl" alt="No Picture!" class="text-left"/> </div>
+            <div class="text-xl text-center " ><a asp-controller="Card" asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></div>            
+        </div>
+
+    }
+</div>
+
+<table class="table">
+    <thead>
+    <tr class="text-center">
+        <th>@Model.ColumnCardName</th>
+        <th>@Model.ColumnCardType</th>
+        <th>@Model.ColumnRarity</th>
+        <th>@Model.ColumnNewCard</th>
+    </tr>
+    </thead>
+    <tbody>
+
+
+    @foreach (var card in Model.Cards)
+    {
+        <tr class="text-center">
+            <td><a asp-controller="Card" asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></td>
+            <td>@card.Type</td>
+            
+            <td>@card.RarityCode</td>
+
+            @{
+                if (@card.NewCard)
+                {
+                    <td>✅</td>
+                }
+                else
+                {
+                    <td>⭕</td>
+                }
+            }
+
+        </tr>
+    }
+
+    </tbody>
+</table>
+
+
+</body>
