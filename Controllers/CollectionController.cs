@@ -1,19 +1,20 @@
-
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace mtg_app.Controllers
 {
-    [Route("")]
     [Route("[controller]")]
     public class CollectionController : Controller
     {
-        /**
-        public IActionResult Collection()
-        {
+        // Route: /Collection/ 
+        //TODO: fix this Route
+        [Authorize]
+        [Route("")]
+        [Route("[action]")]
+
+        public IActionResult showTradinshowCollectionPage(){
             return View();
         }
-        **/
-        //this is a comment because otherwise you'd constantly get this view
 
     }
 }
