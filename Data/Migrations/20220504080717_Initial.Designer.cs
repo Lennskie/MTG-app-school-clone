@@ -12,7 +12,7 @@ using mtg_app.Data;
 namespace mtg_app.Data.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20220427084738_Initial")]
+    [Migration("20220504080717_Initial")]
     partial class Initial
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)

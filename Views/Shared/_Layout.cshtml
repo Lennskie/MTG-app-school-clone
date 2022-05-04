@@ -23,8 +23,18 @@
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Webshop" asp-action="showListings">Listings</a>
                         </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Card" asp-action="Index">Cards</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Collection" asp-action="Index">Collection</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-controller="Account" asp-action="showAccountPage">Account</a>
+                        </li>
+                        
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -39,7 +49,7 @@
 
     <footer class="border-top footer text-muted">
         <div class="container">
-            &copy; 2022 - mtg_app - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            &copy; 2022 - mtg_app/Final assignment - Lenn, Milan & Sieger
         </div>
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
