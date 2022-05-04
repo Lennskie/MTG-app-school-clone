@@ -1,7 +1,7 @@
 @{
     ViewData["Title"] = "Collection";
 }
-@model mtg_app.Models.Card.CardsViewModel; //This model should be changed to that of the userthemselves, and not the general model
+@model mtg_app.Models.Collection.CollectionViewModel; //This model should be changed to that of the userthemselves, and not the general model
 <header>
 <!--autogen header here-->
 
@@ -26,7 +26,7 @@
         
         @foreach (var card in Model.Cards) {
                 <tr class="text-center">
-                    <td><a asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></td>
+                    <td><a asp-controller="Card" asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></td>
                     <td>@card.Type</td>
                     
                     <td>@card.Variations</td>

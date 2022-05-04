@@ -2,7 +2,7 @@ using Microsoft.AspNetCore.Mvc;
 using mtg_app.Models.Collection.OpenPacks;
 using mtg_lib.Library.Models;
 using mtg_lib.Library.Services;
-using mtg_app.Models.Card; //Change this later to Models.Collection, this is just to test the page
+using mtg_app.Models.Collection;
 
 namespace mtg_app.Controllers
 {
@@ -19,14 +19,14 @@ namespace mtg_app.Controllers
         [Route("[action]")]
         public IActionResult Collection()
         {
-            return View(new CardsViewModel
+            return View(new CollectionViewModel
             {
                 PageTitle = "Cards",
                 ColumnCardName = "Card Name",
                 ColumnCardType = "Card Type",
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
-                Cards = cardService.GetSetAmountOfCards(50).Select(c => new CardViewModel
+                Cards = cardService.GetSetAmountOfCards(50).Select(c => new CollectionCardViewModel
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
