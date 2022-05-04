@@ -2,19 +2,26 @@
 
 @*Header met master view*@
 
+<h1>Webshop</h1>
 
-
-
-
-<h1>WIP: ALL LISTINGS</h1>
-
-@*@foreach (var listing in Model.Listings) {*@
+<div>
+    <h2>Buy a Booster Pack</h2>
+    <b>What is a booster pack?</b><br>
+    A booster pack contains 15 cards:<br>
+    - 1x <a asp-controller="Card" asp-action="Index">Rare or Mythic Rare</a> (TODO: filter op Rare en Mythic Rare)<br>
+    - 1x <a asp-controller="Card" asp-action="Index">Basic Land</a> (TODO: filter op land cards)<br>
+    - 3x <a asp-controller="Card" asp-action="Index">Uncommon</a>  (TODO: filter op uncommon)<br>
+    - 10x <a asp-controller="Card" asp-action="Index">Common</a> (TODO: filter op common)<br><br>
+    <a asp-controller="Webshop" asp-action="buyBoosterPack">BUY BOOSTER PACK</a>
+</div>
+<br>
+<div>
+    <h2>Current Listings</h2>
+    @*@foreach (var listing in Model.Listings) {*@
     <a>USE A PARTIAL HERE "CardListingPartial"?</a>
     @*<partial name="CardListingPartial" model="Model">*@
 @*}*@
-
-
-
+</div>
 
 
 

@@ -19,4 +19,11 @@ public class WebshopController : Controller {
         //return View(ls.getListingbyListingId(listingId));
             return View();
     }
+
+    [Route("[action]")]
+    public IActionResult buyBoosterPack(){
+        //parameter listingId toevoegen in functie
+        //return View(ls.getListingbyListingId(listingId));
+            return View();
+    }
 }
