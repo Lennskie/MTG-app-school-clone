@@ -49,6 +49,13 @@ namespace mtg_app.Controllers
         {
             Card? card = cardService.GetCardFromId(cardId);
 
+            if (card?.OriginalImageUrl == null)
+            {
+                //Console.WriteLine("Retrieving new imageUrl");
+                card.OriginalImageUrl =  cardService.GetImageFromVariations(card);
+            }
+            
+            
             return View(new SingleCard
             {
                 ImageUrl = card?.OriginalImageUrl,
