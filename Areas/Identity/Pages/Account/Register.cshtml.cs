@@ -24,6 +24,7 @@ namespace mtg_app.Areas.Identity.Pages.Account
     public class RegisterModel : PageModel
     {
         private readonly string _defaultRole = "Member";
+        private readonly int _defaultCoins = 100;
 
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly UserManager<IdentityUser> _userManager;
@@ -123,7 +124,7 @@ namespace mtg_app.Areas.Identity.Pages.Account
                 if (result.Succeeded)
                 {
                     var roleResult = await _userManager.AddToRoleAsync(user, _defaultRole);
-                    
+
                     _logger.LogInformation("User created a new account with password.");
 
                     var userId = await _userManager.GetUserIdAsync(user);
