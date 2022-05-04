@@ -1,0 +1,21 @@
+@*model link*@
+@*Header met master view*@
+<script>
+    function calcTotal(){
+        var quantity = document.getElementById('amount').value;
+        document.getElementById('total').innerHTML = quantity * 100;
+    }
+</script>
+<h1>Buying Booster Packs</h1>
+<div>
+    Your coins: 1000 <br>
+    Booster Pack price: 100 <br><br>
+    <form>
+        <label for="amount"><b>Quantity:</b></label><br>
+        <input type="number" id="amount" name="amount"  value="1" min="1" oninput="calcTotal()" required><br>
+        <label for="total"><b>Total: </b></label><br>
+        <label for="total" id="total"></label><br><br>
+        <input type="submit" value="Buy">
+    </form>
+</div>
+@*Footer met master view*@
