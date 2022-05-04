@@ -24,29 +24,9 @@
                 </tr>
             </thead>
             <tbody>
-        
-        
-        @foreach (var card in Model.Cards) {
-                <tr class="text-center">
-                    <td><a asp-action="SingleCard" asp-route-cardId="@card.CardId">@card.Name</a></td>
-                    <td>@card.Type</td>
-                    
-                    <td>@card.Variations</td>
-                    
-                    @{
-                        if (@card.InCollection)
-                        {
-                            <td>✅</td>
-                        }
-                        else
-                        {
-                            <td>⭕</td>
-                        }
-                    }
-                    
-                </tr>
-            }
-            
+                @foreach (var card in Model.Cards) {
+                    Html.RenderPartial("_CardsPartial", card);
+                }
             </tbody>
         </table>
     </div>
