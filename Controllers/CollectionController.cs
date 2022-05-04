@@ -1,8 +1,8 @@
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mtg_app.Models.Collection.OpenPacks;
 using mtg_lib.Library.Models;
 using mtg_lib.Library.Services;
+using mtg_app.Models.Card; //Change this later to Models.Collection, this is just to test the page
 
 namespace mtg_app.Controllers
 {
@@ -17,10 +17,25 @@ namespace mtg_app.Controllers
         
         [Route("")]
         [Route("[action]")]
-        public IActionResult Index()
+        public IActionResult Collection()
         {
-            return View();
-
+            return View(new CardsViewModel
+            {
+                PageTitle = "Cards",
+                ColumnCardName = "Card Name",
+                ColumnCardType = "Card Type",
+                ColumnCardVariations = "Card Variations",
+                ColumnCardInCollection = "Card Collection Status",
+                Cards = cardService.GetSetAmountOfCards(50).Select(c => new CardViewModel
+                {
+                    CardId = c.MtgId,
+                    Name = c.Name,
+                    Type = c.Type,
+                    // TODO: Dynamically decide on the amount of variations for a card
+                    Variations = 0,
+                    InCollection = false
+                }).ToList()
+            });
         }
 
         
