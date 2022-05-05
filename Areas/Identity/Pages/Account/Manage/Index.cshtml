@@ -21,11 +21,10 @@
                 <span asp-validation-for="Input.PhoneNumber" class="text-danger"></span>
             </div>
             
-            
-            <button asp-controller="CoinController" asp-action="ReceiveFreeCoins">Receive Starting Coins!</button>
-            
-            <button asp-controller="CoinController" asp-action="ReceiveDailCoins">Receive Daily Coins! </button>
-            
+            <div>
+                <a asp-controller="Coin" asp-action="Index"  >Check your coin balance!</a>
+            </div>
+
             <button id="update-profile-button" type="submit" class="w-100 btn btn-lg btn-primary">Save</button>
         </form>
     </div>
