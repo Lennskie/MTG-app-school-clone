@@ -27,8 +27,8 @@ namespace mtg_app.Controllers
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
-            bool receivedFreeCoins = coinService.checkIfReceivedDefaultCoins(userId);
-            bool receivedDailyCoins = coinService.checkDailyCoinsClaimed(userId);
+            bool receivedFreeCoins = coinService.CheckIfReceivedDefaultCoins(userId);
+            bool receivedDailyCoins = coinService.CheckDailyCoinsClaimed(userId);
             int userCoinBalance = coinService.GetUserCoinBalance(userId);
             
             
@@ -47,9 +47,8 @@ namespace mtg_app.Controllers
         public IActionResult ReceiveFreeCoins()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //Console.WriteLine("Current logged in user id: " + userId);
 
-            coinService.receiveDefaultCoins(userId);
+            coinService.ReceiveDefaultCoins(userId);
             
             return RedirectToAction("Index");
         }
@@ -61,9 +60,9 @@ namespace mtg_app.Controllers
         public IActionResult ReceiveDailyCoins()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-            //Console.WriteLine("Current logged in user id: " + userId);
-            
-            
+
+            coinService.AddDailyCoins(userId);
+
             return RedirectToAction("Index");
         }
         
