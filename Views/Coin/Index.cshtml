@@ -1,0 +1,39 @@
+﻿@{
+    ViewData["Title"] = "Coins";
+}
+
+ @model mtg_app.Models.Coin.CoinViewModel;
+
+<header>
+    
+    <div class="text-center">
+        <h1 class="display-4">Coin Back</h1>
+    </div>
+    
+</header>
+
+<body>
+<div>
+    <p>Current Coin Balance:</p>
+    <p class="text-xl" >@Model.UserCoinBalance</p>
+</div>
+
+
+<div>
+    @{
+        if (!@Model.ReceivedDefaultCoins)
+        {
+           <a asp-action="ReceiveFreeCoins">Receive Starting Coins!</a> 
+        }
+
+        if (!@Model.ReceivedDailyCoins)
+        {
+            <a asp-action="ReceiveDailyCoins">Receive Daily Coins! </a>
+        }
+        else
+        {
+            <p>You have already colleted your Daily Coins!</p>
+        }
+    }
+</div>
+</body>
