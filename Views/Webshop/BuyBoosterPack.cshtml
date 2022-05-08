@@ -1,0 +1,75 @@
+
+@using mtg_app.Models.WebShop
+@model mtg_app.Models.WebShop.WebShopViewModel;
+
+<script>
+    function calcTotal(){
+        var quantity = document.getElementById('amount').value;
+        document.getElementById('total').innerHTML = quantity * 100;
+    }
+</script>
+<h1>Buying Booster Packs</h1>
+<div>
+    <div>
+        <p>Coin Balance:</p>
+        <p>@Model.CoinBalance</p>
+    </div>
+    <div>
+        <p>Booster Pack price:</p>
+        <p>@Model.BoosterPackPrice</p>
+    </div>
+    
+    <form asp-controller="Webshop" asp-action="AddToCart" method="Post">
+
+            <div class="form-group flex flex-row">
+                <label for="AmountOfPacksToAdd">Quantity:</label>
+              @* <input asp-for="AmountOfPacksToAdd" class="form-control" type="number" id="amount" name="amount" value="1" min="1" oninput="calcTotal()" required> *@
+                <input asp-for="AmountOfPacksToAdd" id="AmountOfPacksToAdd" class="form-control" required>
+            </div>
+
+
+            <div class="form-group">
+                <label for="total">Total: </label>
+                <label for="total" id="total"></label>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Add to Cart" class="btn btn-primary"/>
+            </div>
+
+        </form>
+
+    @*@using (Html.BeginForm("AddToCart", "Webshop", FormMethod.Post))
+    {
+        AddPackToCartModel addPackToCartModel = new AddPackToCartModel();
+        //@Html.TextBoxFor(m => addPackToCartModel.AmountOfPacks)
+    }*@
+    
+    <div>
+        <p>Packs in cart</p>
+        @{
+            if (@Model.AmountOfPacksInCart != null)
+            {
+                <p>@Model.AmountOfPacksInCart</p>
+            }
+            else
+            {
+                <p>No Packs in Cart!</p>
+            }
+        }
+        
+    </div>
+    
+    <div>
+        <form asp-controller="Webshop" asp-action="Buy" method="Post">
+
+            <div class="form-group">
+                <input type="submit" value="Buy Cart" class="btn btn-primary"/>
+            </div>
+    
+        </form>
+    </div>
+    
+    
+</div>
+@*Footer met master view*@
