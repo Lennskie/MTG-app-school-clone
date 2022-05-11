@@ -1,0 +1,45 @@
+@{
+    Layout = "_Layout";
+}
+
+@model mtg_app.Models.Card.SingleCard
+
+
+<header>
+    Card Name: @Model.Name
+</header>
+
+<body>
+        <style>
+            .wrapper{display: flex;}
+            .img, .table{display: inline-block; margin-left: 10%;}
+        </style>
+    <div class="wrapper">
+        <div class="img" ><img src="@Model.ImageUrl" class="text-left" />  </div>
+        <div class="table">
+            <dl class="text-right">
+                <dt>Type:</dt>
+                <dd>@Model.Type</dd>
+                
+                <dt>Variations:</dt>
+
+                @{
+                    if (@Model.Variations.Capacity != 0)
+                    {
+                        <ul>
+                                @foreach (var mtgid in @Model.Variations)
+                                {
+                                    <il><a asp-action="SingleCard" asp-route-cardId="@mtgid">Card Variation</a></il>
+                                }
+                        </ul>
+                    }
+                    else
+                    {
+                        <dd>This card doesn't have any variants!</dd>
+                    }
+                }
+                
+            </dl>
+        </div>
+    </div>
+</body>

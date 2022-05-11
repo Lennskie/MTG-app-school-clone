@@ -13,14 +13,13 @@
 </header>
 
 <body>
-    @using(Html.BeginForm("findCard","CardController", FormMethod.Get))
+    @using(Html.BeginForm("Search","CardSearch", FormMethod.Get))
     {
-        @Html.TextBox("Year", "") //have a blank search field instead of having to delete the word "cards"
+        @Html.TextBox("Name", "") //have a blank search field instead of having to delete the word "cards"
         <div>
             <input type="submit" value="Search" />
         </div>
     }
-    <!--add a search here to search inside the cards-->
     <div>
         <table class="table">
             <thead>
