@@ -13,11 +13,13 @@
 </header>
 
 <body>
-    @using(Html.BeginForm("Search","CardSearch", FormMethod.Get))
-    {
-        @Html.TextBox("Name") //Search?Name=<input>
-        <input type="submit" value="Search" />
-    }
+    <form 
+        asp-controller="SearchCard"
+        asp-action="SingleCard"
+        method="GET">
+        <input type="text" name="Name" value=""/>
+        <input type="submit">
+    </form>
     <div>
         <table class="table">
             <thead>

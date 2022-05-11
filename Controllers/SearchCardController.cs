@@ -8,16 +8,16 @@ namespace mtg_app.Controllers
 {
 
     [Route("[controller]")]
-    public class CardSearchController : Controller
+    public class SearchCardController : Controller
     {
         CardService cardService = new CardService();
-
-        // Route: /SearchCard/Search?Name=<cardName>
         [Authorize]
-        [Route("{cardName}")]
-        public IActionResult SingleCard(string cardName)
+
+        public IActionResult SingleCard(string Name)
         {
-            Card? card = cardService.GetCardFromString(cardName);
+            Card? card = cardService.GetCardFromString(Name);
+
+            Console.WriteLine(Name);
 
             if (card?.OriginalImageUrl == null)
             {
