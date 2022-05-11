@@ -21,23 +21,28 @@
     
     <form asp-controller="Webshop" asp-action="AddToCart" method="Post">
 
-            <div class="form-group flex flex-row">
-                <label for="AmountOfPacksToAdd">Quantity:</label>
-              @* <input asp-for="AmountOfPacksToAdd" class="form-control" type="number" id="amount" name="amount" value="1" min="1" oninput="calcTotal()" required> *@
-                <input asp-for="AmountOfPacksToAdd" id="AmountOfPacksToAdd" class="form-control" required>
-            </div>
+        <div class="form-group flex flex-row">
+            <label for="AmountOfPacksToAdd">Quantity:</label>
+            @* <input asp-for="AmountOfPacksToAdd" class="form-control" type="number" id="amount" name="amount" value="1" min="1" oninput="calcTotal()" required> *@
+            <input asp-for="AmountOfPacksToAdd" id="AmountOfPacksToAdd" class="form-control" required>
+        </div>
 
 
-            <div class="form-group">
-                <label for="total">Total: </label>
-                <label for="total" id="total"></label>
-            </div>
+        <div class="form-group">
+            <label for="total">Total: </label>
+            <label for="total" id="total"></label>
+        </div>
 
-            <div class="form-group">
-                <input type="submit" value="Add to Cart" class="btn btn-primary"/>
-            </div>
+        <div class="form-group">
+            <input type="submit" value="Add to Cart" class="btn btn-primary"/>
+        </div>
 
-        </form>
+    </form>
+    
+    <div>
+        <a asp-action="CleanCart" class="btn btn-primary" >Clean Cart!</a>
+    </div>
+    
 
     @*@using (Html.BeginForm("AddToCart", "Webshop", FormMethod.Post))
     {
@@ -61,10 +66,11 @@
     </div>
     
     <div>
-        <form asp-controller="Webshop" asp-action="Buy" method="Post">
-
+        <form asp-controller="Webshop" asp-action="BuyPacksInCart" method="Post">
+            
             <div class="form-group">
                 <input type="submit" value="Buy Cart" class="btn btn-primary"/>
+                <span asp-validation-for="AmountOfPacksInCart" class="text-danger"></span>
             </div>
     
         </form>

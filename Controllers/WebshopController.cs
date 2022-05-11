@@ -13,6 +13,7 @@ namespace mtg_app.Controllers;
 public class WebshopController : Controller {
     
     //private ListingService ls = new ListingService();
+    private PackService packService = new PackService();
 
     private CoinService coinService = new CoinService();
     
@@ -21,7 +22,7 @@ public class WebshopController : Controller {
     private readonly int _BoosterPackPrice = 100;
     
 
-        [Route("[action]")]
+    [Route("[action]")]
     public IActionResult Index()
     {
         return View();
@@ -35,7 +36,7 @@ public class WebshopController : Controller {
     }
 
     [Route("[action]")]
-    public IActionResult BuyBoosterPack(){
+    public IActionResult BuyBoosterPack() {
         
         int? amountOfPacks =  sessionService.GetAmountOfPacksCart(HttpContext.Session);
         string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -58,6 +59,46 @@ public class WebshopController : Controller {
         sessionService.StoreCartPacks(HttpContext.Session,amountOfPacksToAdd);
 
         return RedirectToAction("BuyBoosterPack");
+    }
+    
+    public IActionResult CleanCart()
+    {
+        sessionService.ClearSession(HttpContext.Session);
+        
+        return RedirectToAction("BuyBoosterPack");
+    }
+
+
+    public IActionResult BuyPacksInCart(WebShopViewModel webShopViewModel)
+    {
+        string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+        int currentCoinBalance = coinService.GetUserCoinBalance(userId);
+        int currentAmountOfPacksInCart = sessionService.GetAmountOfPacksCart(HttpContext.Session);
+        int currentBoosterPackPrice = _BoosterPackPrice;
+        int? totalCartPrice = currentBoosterPackPrice * currentAmountOfPacksInCart;
+        
+
+        if (totalCartPrice > currentCoinBalance)
+        {
+            ModelState.AddModelError("AmountOfPacksInCart", "Cart Contains to much packs!");
+        }
+        else
+        {
+            // Decrease coin balance
+            coinService.DecreaseUserCoinBalance(userId,totalCartPrice);
+            
+            // Buy the amount of packs if possible
+            packService.AddPackToUser(userId,currentAmountOfPacksInCart);
+            
+            // Clean Cart
+            sessionService.ClearSession(HttpContext.Session);
+        }
+        
+        webShopViewModel.CoinBalance = coinService.GetUserCoinBalance(userId);
+        webShopViewModel.BoosterPackPrice = _BoosterPackPrice;
+        webShopViewModel.AmountOfPacksInCart = sessionService.GetAmountOfPacksCart(HttpContext.Session);
+        
+        return View("BuyBoosterPack", webShopViewModel);
     }
     
 }
