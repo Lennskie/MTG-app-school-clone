@@ -132,8 +132,11 @@ namespace mtg_app.Areas.Identity.Pages.Account
 
                     CoinService coinService = new CoinService();
                     coinService.CreateUserCoinForUser(userId);
-                    
-                    
+
+                    PackService packService = new PackService();
+                    packService.CreateUserPackForUser(userId);
+
+
                     var code = await _userManager.GenerateEmailConfirmationTokenAsync(user);
                     code = WebEncoders.Base64UrlEncode(Encoding.UTF8.GetBytes(code));
                     var callbackUrl = Url.Page(
