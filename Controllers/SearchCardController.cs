@@ -12,7 +12,7 @@ namespace mtg_app.Controllers
     {
         CardService cardService = new CardService();
 
-        // Route: /SearchCard/<cardName>
+        // Route: /SearchCard/Search?Name=<cardName>
         [Authorize]
         [Route("{cardName}")]
         public IActionResult SingleCard(string cardName)

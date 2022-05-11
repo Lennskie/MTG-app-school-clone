@@ -15,10 +15,8 @@
 <body>
     @using(Html.BeginForm("Search","CardSearch", FormMethod.Get))
     {
-        @Html.TextBox("Name", "") //have a blank search field instead of having to delete the word "cards"
-        <div>
-            <input type="submit" value="Search" />
-        </div>
+        @Html.TextBox("Name") //Search?Name=<input>
+        <input type="submit" value="Search" />
     }
     <div>
         <table class="table">
