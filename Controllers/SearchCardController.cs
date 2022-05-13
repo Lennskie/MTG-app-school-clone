@@ -17,8 +17,6 @@ namespace mtg_app.Controllers
         {
             Card? card = cardService.GetCardFromString(Name);
 
-            Console.WriteLine(Name);
-
             if (card?.OriginalImageUrl == null)
             {
                 //Console.WriteLine("Retrieving new imageUrl");
