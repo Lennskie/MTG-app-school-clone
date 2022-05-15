@@ -1,8 +1,10 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
 using mtg_app.Models.Collection.OpenPacks;
 using mtg_lib.Library.Models;
 using mtg_lib.Library.Services;
 using mtg_app.Models.Collection;
+using mtg_app.Models.Collection.Packs;
 
 namespace mtg_app.Controllers
 {
@@ -12,8 +14,8 @@ namespace mtg_app.Controllers
     public class CollectionController : Controller
     {
         
-        CardService cardService = new CardService();
-        private PackService packService = new PackService();
+        private readonly CardService _cardService = new CardService();
+        private readonly PackService _packService = new PackService();
         
         [Route("")]
         [Route("[action]")]
@@ -26,7 +28,7 @@ namespace mtg_app.Controllers
                 ColumnCardType = "Card Type",
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
-                Cards = cardService.GetSetAmountOfCards(50).Select(c => new CollectionCardViewModel
+                Cards = _cardService.GetSetAmountOfCards(50).Select(c => new CollectionCardViewModel
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
@@ -42,13 +44,33 @@ namespace mtg_app.Controllers
         [Route("[action]")]
         public IActionResult Packs()
         {
-            return View();
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            UserPack userPack = _packService.GetUserPackFromUserId(userId);
+            
+            return View(new CollectionPacksViewModel
+                {
+                    PackAmounts = userPack.Packs
+                }
+            );
         }
         
+
         [Route("packs/[action]")]
         public IActionResult OpenPack()
         {
-            IEnumerable<Card> cardsInPack = packService.CreateRandomPack("");
+            IEnumerable<Card> cardsInPack = _packService.CreateRandomPack("");
+            
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            UserPack userPack = _packService.GetUserPackFromUserId(userId);
+
+            if (userPack.Packs <= 0)
+            {
+                RedirectToAction("Collection");
+            }
+            
+            
 
             List<OpenPacksCardViewModel> filteredCardsInPack = cardsInPack.Select(c => new OpenPacksCardViewModel
             {
