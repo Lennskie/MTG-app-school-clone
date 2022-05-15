@@ -16,11 +16,14 @@ namespace mtg_app.Controllers
         
         private readonly CardService _cardService = new CardService();
         private readonly PackService _packService = new PackService();
+        private readonly UserCardService _userCardService = new UserCardService();
         
         [Route("")]
         [Route("[action]")]
         public IActionResult Collection()
         {
+            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            
             return View(new CollectionViewModel
             {
                 PageTitle = "Cards",
@@ -35,7 +38,7 @@ namespace mtg_app.Controllers
                     Type = c.Type,
                     // TODO: Dynamically decide on the amount of variations for a card
                     Variations = 0,
-                    InCollection = false
+                    InCollection = _userCardService.CheckPrecenceCardForUser(userId,c.MtgId)
                 }).ToList()
             });
         }
@@ -71,16 +74,19 @@ namespace mtg_app.Controllers
             }
             
             
-
             List<OpenPacksCardViewModel> filteredCardsInPack = cardsInPack.Select(c => new OpenPacksCardViewModel
             {
                 CardId = c.MtgId,
                 Name = c.Name,
                 Type = c.Type,
-                NewCard = true,
+                NewCard = _userCardService.CheckPrecenceCardForUser(userId,c.MtgId),
                 RarityCode = c.RarityCode,
-                ImageUrl = c.OriginalImageUrl,
+                ImageUrl = c.OriginalImageUrl
             }).ToList();
+
+            IEnumerable<string> listIds = filteredCardsInPack.Select(c => c.CardId);
+
+            _userCardService.AddCardsToUserCards(userId,listIds);
 
             return View(new OpenPacksViewModel
             {
