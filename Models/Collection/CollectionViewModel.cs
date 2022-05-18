@@ -14,6 +14,14 @@ public class CollectionViewModel
     public string? ColumnCardVariations { get; set; }
     
     public List<CollectionCardViewModel>? Cards { get; set; }
+
+    public List<int> Power { get; set; }
+
+    public List<int> Thoughness { get; set; }
+
+    public List<int> ManaCost { get; set; }
+
+    public List<String> Rarity { get; set; }
     
     
 }
