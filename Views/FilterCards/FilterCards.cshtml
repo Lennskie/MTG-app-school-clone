@@ -7,7 +7,7 @@
 <header>
     
     <div class="text-center">
-        <h1 class="display-4">All Cards</h1>
+        <h1 class="display-4">Filter results</h1>
     </div>
     
 </header>
@@ -25,7 +25,7 @@
             </thead>
             <tbody>
                 @foreach (var card in Model.Cards) {
-                    Html.RenderPartial("_CardsPartial", card);
+                    Html.RenderPartial("_FilterCardsPartial", card);
                 }
             </tbody>
         </table>
