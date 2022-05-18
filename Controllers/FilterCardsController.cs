@@ -14,8 +14,9 @@ namespace mtg_app.Controllers
         CardService cardService = new CardService();
         // Route: /FilterCards/
         [Authorize]
-        public IActionResult FilterCards()
+        public IActionResult FilterCards(string rarity_code, string converted_mana_cost, string power, string thoughness)
         {
+            Console.WriteLine(rarity_code + " " + converted_mana_cost + " " + power + " " + thoughness);
             return View(new CardsViewModel
             {
                 PageTitle = "Cards",
@@ -23,7 +24,7 @@ namespace mtg_app.Controllers
                 ColumnCardType = "Card Type",
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
-                Cards = cardService.GetSetAmountOfCards(50).Select(c => new CardViewModel //change this to the service that uses the filter
+                Cards = cardService.GetCardsByFilters(rarity_code, converted_mana_cost, power, thoughness).Select(c => new CardViewModel //change this to the service that uses the filter
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
