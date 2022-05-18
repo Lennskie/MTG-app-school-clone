@@ -30,46 +30,34 @@
         <label for="rarity_code">Rarity:</label>
         <select id="rarity_code" name="rarity_code" form="filter">
             <option value=null></option>
-            <option value="U">U</option>
-            <option value="C">C</option>
-            <option value="R">R</option>
-            <option value="L">L</option>
-            <option value="M">M</option>
-            <option value="MR">MR</option>
-            <!--have this dynamically filled in, just to test right now-->
+            @foreach (var rarityLevels in Model.Rarity)
+            {
+                <option value=@rarityLevels>@rarityLevels</option>
+            }
         </select>
         <label for="converted_mana_cost">Mana cost:</label>
         <select id="converted_mana_cost" name="converted_mana_cost" form="filter">
             <option value=null></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <!--have this dynamically filled in, just to test right now-->
+            @foreach (var manaCostLevels in Model.ManaCost)
+            {
+                <option value=@manaCostLevels>@manaCostLevels</option>
+            }
         </select>
         <label for="power">Power:</label>
         <select id="power" name="power" form="filter">
             <option value=null></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <!--have this dynamically filled in, just to test right now-->
+            @foreach (var powerLevels in Model.Power)
+            {
+                <option value=@powerLevels>@powerLevels</option>
+            }
         </select>
         <label for="thoughness">Thoughness:</label>
         <select id="thoughness" name="thoughness" form="filter">
             <option value=null></option>
-            <option value="1">1</option>
-            <option value="2">2</option>
-            <option value="3">3</option>
-            <option value="4">4</option>
-            <option value="5">5</option>
-            <option value="6">6</option>
-            <!--have this dynamically filled in, just to test right now-->
+            @foreach (var thoughnessLevels in Model.Thoughness)
+            {
+                <option value=@thoughnessLevels>@thoughnessLevels</option>
+            }
         </select>
         <input type="submit" form="filter" value="Filter">
     </form>
