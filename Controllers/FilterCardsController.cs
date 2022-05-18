@@ -16,7 +16,6 @@ namespace mtg_app.Controllers
         [Authorize]
         public IActionResult FilterCards(string rarity_code, string converted_mana_cost, string power, string thoughness)
         {
-            Console.WriteLine(rarity_code + " " + converted_mana_cost + " " + power + " " + thoughness);
             return View(new CardsViewModel
             {
                 PageTitle = "Cards",
@@ -29,9 +28,8 @@ namespace mtg_app.Controllers
                     CardId = c.MtgId,
                     Name = c.Name,
                     Type = c.Type,
-                    // TODO: Dynamically decide on the amount of variations for a card
                     Variations = 0,
-                    InCollection = false
+                    InCollection = false //check has to be added here
                 }).ToList()
             });
 
