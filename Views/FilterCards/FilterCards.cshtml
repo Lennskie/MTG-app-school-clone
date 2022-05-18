@@ -1,0 +1,33 @@
+@{
+    ViewData["Title"] = "FilterCards";
+}
+
+@model mtg_app.Models.Card.CardsViewModel;
+
+<header>
+    
+    <div class="text-center">
+        <h1 class="display-4">All Cards</h1>
+    </div>
+    
+</header>
+
+<body>
+    <div>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Model.ColumnCardName</th>
+                    <th>@Model.ColumnCardType</th>
+                    <th>@Model.ColumnCardVariations</th>
+                    <th>@Model.ColumnCardInCollection</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var card in Model.Cards) {
+                    Html.RenderPartial("_CardsPartial", card);
+                }
+            </tbody>
+        </table>
+    </div>
+</body>
