@@ -87,6 +87,7 @@ namespace mtg_app.Controllers
             IEnumerable<string> listIds = filteredCardsInPack.Select(c => c.CardId);
 
             _userCardService.AddCardsToUserCards(userId,listIds);
+            _packService.DecreasePackCountUser(userId);
 
             return View(new OpenPacksViewModel
             {
