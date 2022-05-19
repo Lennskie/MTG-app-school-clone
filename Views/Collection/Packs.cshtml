@@ -1,6 +1,8 @@
 ﻿@{
     ViewData["Title"] = "Packs In Collection";
 }
+@model mtg_app.Models.Collection.Packs.CollectionPacksViewModel;
+
 <header>
     <!--autogen header here-->
 
@@ -8,6 +10,17 @@
         <h1 class="display-4">Collection</h1>
         <p>Here is your Pack collection:</p>
     </div>
+    
+    <div>
+        <p>Pack Amount: @Model.PackAmounts</p>
+        @{
+            if (@Model.PackAmounts > 0)
+            {
+                <a asp-action="OpenPack" class="btn btn-primary">Open Pack</a>
+            }
+        }
+    </div>
+    
 </header>
 <body>
 <!--autogen style, move this to css later-->
