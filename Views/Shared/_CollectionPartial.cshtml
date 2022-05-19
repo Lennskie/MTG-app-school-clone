@@ -2,7 +2,7 @@
 
 
 <tr class="text-center">
-    <td><a asp-action="SingleCard" asp-route-cardId="@Model.CardId">@Model.Name</a></td>
+    <td><a asp-controller="Card" asp-action="SingleCard" asp-route-cardId="@Model.CardId">@Model.Name</a></td>
     <td>@Model.Type</td>
     <td>@Model.Variations</td>
     @{

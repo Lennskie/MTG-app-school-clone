@@ -31,6 +31,11 @@ namespace mtg_app.Controllers
                 ColumnCardType = "Card Type",
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
+                
+                Power = _cardService.getPower(),
+                Thoughness = _cardService.getThoughness(),
+                Rarity = _cardService.getRarity(),
+                ManaCost = _cardService.getManaCosts(),
                 Cards = _cardService.GetSetAmountOfCards(50).Select(c => new CollectionCardViewModel
                 {
                     CardId = c.MtgId,
