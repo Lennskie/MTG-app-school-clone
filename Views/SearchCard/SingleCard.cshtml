@@ -1,45 +1,86 @@
 @{
-    Layout = "_Layout";
+    ViewData["Title"] = "Cards";
 }
 
-@model mtg_app.Models.Card.SingleCard
-
+@model mtg_app.Models.Card.CardsViewModel;
 
 <header>
-    Card Name: @Model.Name
+    
+    <div class="text-center">
+        <h1 class="display-4">All Cards</h1>
+    </div>
+    
 </header>
 
 <body>
-        <style>
-            .wrapper{display: flex;}
-            .img, .table{display: inline-block; margin-left: 10%;}
-        </style>
-    <div class="wrapper">
-        <div class="img" ><img src="@Model.ImageUrl" class="text-left" />  </div>
-        <div class="table">
-            <dl class="text-right">
-                <dt>Type:</dt>
-                <dd>@Model.Type</dd>
-                
-                <dt>Variations:</dt>
-
-                @{
-                    if (@Model.Variations.Capacity != 0)
-                    {
-                        <ul>
-                                @foreach (var mtgid in @Model.Variations)
-                                {
-                                    <il><a asp-action="SingleCard" asp-route-cardId="@mtgid">Card Variation</a></il>
-                                }
-                        </ul>
-                    }
-                    else
-                    {
-                        <dd>This card doesn't have any variants!</dd>
-                    }
-                }
-                
-            </dl>
+    <div class="container">
+        <div class="c1">
+            <form 
+                asp-controller="SearchCard"
+                asp-action="SingleCard"
+                method="GET"
+                id="search">
+                <input type="text" name="Name" value="" form="search"/>
+                <input type="submit" form="search" value="Search">
+            </form>
         </div>
+            <div class="c2">
+                <form 
+                    asp-controller="FilterCards"
+                    asp-action="FilterCards"
+                    method="GET"
+                    id="filter">
+                    <label for="rarity_code">Rarity:</label>
+                    <select id="rarity_code" name="rarity_code" form="filter">
+                        <option value=null></option>
+                        @foreach (var rarityLevels in Model.Rarity)
+                        {
+                            <option value=@rarityLevels>@rarityLevels</option>
+                        }
+                    </select>
+                    <label for="converted_mana_cost">Mana cost:</label>
+                    <select id="converted_mana_cost" name="converted_mana_cost" form="filter">
+                        <option value=null></option>
+                        @foreach (var manaCostLevels in Model.ManaCost)
+                        {
+                            <option value=@manaCostLevels>@manaCostLevels</option>
+                        }
+                    </select>
+                    <label for="power">Power:</label>
+                    <select id="power" name="power" form="filter">
+                        <option value=null></option>
+                        @foreach (var powerLevels in Model.Power)
+                        {
+                            <option value=@powerLevels>@powerLevels</option>
+                        }
+                    </select>
+                    <label for="thoughness">Thoughness:</label>
+                    <select id="thoughness" name="thoughness" form="filter">
+                        <option value=null></option>
+                        @foreach (var thoughnessLevels in Model.Thoughness)
+                        {
+                            <option value=@thoughnessLevels>@thoughnessLevels</option>
+                        }
+                    </select>
+                    <input type="submit" form="filter" value="Filter">
+                </form>
+            </div>
+    </div>
+    <div>
+        <table class="table">
+            <thead>
+                <tr class="text-center">
+                    <th>@Model.ColumnCardName</th>
+                    <th>@Model.ColumnCardType</th>
+                    <th>@Model.ColumnCardVariations</th>
+                    <th>@Model.ColumnCardInCollection</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var card in Model.Cards) {
+                    Html.RenderPartial("_CardsPartial", card);
+                }
+            </tbody>
+        </table>
     </div>
 </body>
