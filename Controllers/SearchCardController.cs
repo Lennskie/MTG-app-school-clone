@@ -15,21 +15,33 @@ namespace mtg_app.Controllers
 
         public IActionResult SingleCard(string Name)
         {
-            Card? card = cardService.GetCardFromString(Name);
-
-            if (card?.OriginalImageUrl == null)
+            return View(new CardsViewModel
             {
-                //Console.WriteLine("Retrieving new imageUrl");
-                card.OriginalImageUrl =  cardService.GetImageFromVariations(card);
-            }
-            
-            return View(new SingleCard
-            {
-                ImageUrl = card?.OriginalImageUrl,
-                Name = card?.Name,
-                Type = card?.Type,
-                Variations = cardService.RetrieveMtgIdsFromString(card)
+                PageTitle = "Cards",
+                ColumnCardName = "Card Name",
+                ColumnCardType = "Card Type",
+                ColumnCardVariations = "Card Variations",
+                ColumnCardInCollection = "Card Collection Status",
+                Power = cardService.getPower(),
+                Thoughness = cardService.getThoughness(),
+                Rarity = cardService.getRarity(),
+                ManaCost = cardService.getManaCosts(),
+                Cards = cardService.GetCardFromString(Name).Select(c => new CardViewModel
+                {
+                    CardId = c.MtgId,
+                    Name = c.Name,
+                    Type = c.Type,
+                    // TODO: Dynamically decide on the amount of variations for a card
+                    Variations = 0,
+                    InCollection = false
+                }).ToList()
             });
         }
     }
 }
+
+
+
+
+
+
