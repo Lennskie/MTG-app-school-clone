@@ -18,9 +18,8 @@ namespace mtg_app.Controllers
         private readonly PackService _packService = new PackService();
         private readonly UserCardService _userCardService = new UserCardService();
         
-        [Route("")]
         [Route("[action]")]
-        public IActionResult Collection()
+        public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
@@ -75,7 +74,7 @@ namespace mtg_app.Controllers
 
             if (userPack.Packs <= 0)
             {
-                RedirectToAction("Collection");
+                RedirectToAction("Index");
             }
             
             
