@@ -22,7 +22,12 @@ namespace mtg_app.Controllers
         [Route("[action]")]
         public IActionResult Collection()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            Console.WriteLine("Before retrieving userID");
+            
+            //var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            var userId = "";
+
+            Console.WriteLine("After retrieving userID");
             
             return View(new CollectionViewModel
             {
@@ -32,18 +37,18 @@ namespace mtg_app.Controllers
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
                 
-                Power = _cardService.getPower(),
-                Thoughness = _cardService.getThoughness(),
-                Rarity = _cardService.getRarity(),
-                ManaCost = _cardService.getManaCosts(),
-                Cards = _cardService.GetSetAmountOfCards(50).Select(c => new CollectionCardViewModel
+                Power = new List<int>(), //_cardService.getPower(),
+                Thoughness = new List<int>(), // _cardService.getThoughness(),
+                Rarity = new List<string>(), //_cardService.getRarity(),
+                ManaCost = new List<int>(), //_cardService.getManaCosts(),
+                Cards = _cardService.GetUserCardCollection(userId,50).Select(c => new CollectionCardViewModel
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
                     Type = c.Type,
                     // TODO: Dynamically decide on the amount of variations for a card
                     Variations = 0,
-                    InCollection = _userCardService.CheckPrecenceCardForUser(userId,c.MtgId)
+                    InCollection = true //_userCardService.CheckPrecenceCardForUser(userId,c.MtgId)
                 }).ToList()
             });
         }
