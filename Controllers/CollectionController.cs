@@ -23,8 +23,10 @@ namespace mtg_app.Controllers
         [Route("/collection")]
         public IActionResult Index()
         {
-            var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
+            List<Card> testList = new List<Card>(); //to change to the service
+
             return View(new CollectionViewModel
             {
                 PageTitle = "Cards",
@@ -37,14 +39,14 @@ namespace mtg_app.Controllers
                 Thoughness = _cardService.GetThoughness(),
                 Rarity = _cardService.GetRarity(),
                 ManaCost = _cardService.GetManaCosts(),
-                Cards = _cardService.GetSetAmountOfCards(50).Select(c => new CollectionCardViewModel
+                Cards = _userCardService.GetUserCardsForUser(userId).Select(c => new CollectionCardViewModel
                 {
-                    CardId = c.MtgId,
-                    Name = c.Name,
-                    Type = c.Type,
+                    CardId = (_cardService.GetCardFromUserTableId(c.CardId.ToString())).MtgId,
+                    Name = (_cardService.GetCardFromUserTableId(c.CardId.ToString())).Name,
+                    Type = (_cardService.GetCardFromUserTableId(c.CardId.ToString())).Type,
                     // TODO: Dynamically decide on the amount of variations for a card
                     Variations = 0,
-                    InCollection = _userCardService.CheckPrecenceCardForUser(userId,c.MtgId)
+                    InCollection = _userCardService.CheckPrecenceCardForUser(userId,(_cardService.GetCardFromUserTableId(c.CardId.ToString())).MtgId)
                 }).ToList()
             });
         }
