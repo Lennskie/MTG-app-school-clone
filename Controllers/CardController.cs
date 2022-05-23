@@ -17,8 +17,7 @@ namespace mtg_app.Controllers
 
         // Route: /card/
         [Authorize]
-        [Route("")]
-        [Route("[action]")]
+        [Route("/cards")]
         public IActionResult Index()
         {
             return View(new CardsViewModel
@@ -28,10 +27,10 @@ namespace mtg_app.Controllers
                 ColumnCardType = "Card Type",
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
-                Power = cardService.getPower(),
-                Thoughness = cardService.getThoughness(),
-                Rarity = cardService.getRarity(),
-                ManaCost = cardService.getManaCosts(),
+                Power = cardService.GetPower(),
+                Thoughness = cardService.GetThoughness(),
+                Rarity = cardService.GetRarity(),
+                ManaCost = cardService.GetManaCosts(),
                 Cards = cardService.GetSetAmountOfCards(50).Select(c => new CardViewModel
                 {
                     CardId = c.MtgId,
@@ -48,7 +47,7 @@ namespace mtg_app.Controllers
 
         // Route: /card/<cardId>
         [Authorize]
-        [Route("{cardId}")]
+        [Route("/cards/{cardId}")]
         public IActionResult SingleCard(string cardId)
         {
             Card? card = cardService.GetCardFromId(cardId);

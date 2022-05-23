@@ -11,8 +11,9 @@ namespace mtg_app.Controllers
     public class SearchCardController : Controller
     {
         CardService cardService = new CardService();
+        
+        
         [Authorize]
-
         public IActionResult SearchCard(string Name)
         {
             return View(new CardsViewModel
@@ -22,10 +23,10 @@ namespace mtg_app.Controllers
                 ColumnCardType = "Card Type",
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
-                Power = cardService.getPower(),
-                Thoughness = cardService.getThoughness(),
-                Rarity = cardService.getRarity(),
-                ManaCost = cardService.getManaCosts(),
+                Power = cardService.GetPower(),
+                Thoughness = cardService.GetThoughness(),
+                Rarity = cardService.GetRarity(),
+                ManaCost = cardService.GetManaCosts(),
                 Cards = cardService.GetCardFromString(Name).Select(c => new CardViewModel
                 {
                     CardId = c.MtgId,

@@ -1,23 +1,20 @@
-using System.Diagnostics;
+
 using System.Security.Claims;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Mvc.ViewFeatures;
-using mtg_app.Models;
 using mtg_app.Models.WebShop;
 using mtg_app.Services;
 using mtg_lib.Library.Services;
 
-//using mtg_lib.Library.Services;
 
 namespace mtg_app.Controllers;
+
+[Route("[controller]")]
 public class WebshopController : Controller {
     
-    //private ListingService ls = new ListingService();
-    private PackService packService = new PackService();
-
-    private CoinService coinService = new CoinService();
     
-    private SessionService sessionService = new SessionService();
+    private readonly UserPackService _packService = new UserPackService();
+    private readonly UserCoinService _userCoinService = new UserCoinService();
+    private readonly SessionService _sessionService = new SessionService();
     
     private readonly int _BoosterPackPrice = 100;
     
@@ -28,19 +25,19 @@ public class WebshopController : Controller {
         return View();
     }
 
+    
     [Route("[action]")]
     public IActionResult ShowListingByListingId(){
-        //parameter listingId toevoegen in functie
-        //return View(ls.getListingbyListingId(listingId));
         return View();
     }
 
+    
     [Route("[action]")]
     public IActionResult BuyBoosterPack() {
         
-        int? amountOfPacks =  sessionService.GetAmountOfPacksCart(HttpContext.Session);
+        int? amountOfPacks =  _sessionService.GetAmountOfPacksCart(HttpContext.Session);
         string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        int userCoinBalance = coinService.GetUserCoinBalance(userId);
+        int userCoinBalance = _userCoinService.GetUserCoinBalance(userId);
 
         return View(new WebShopViewModel
         {
@@ -50,20 +47,21 @@ public class WebshopController : Controller {
         });
     }
 
+    
     [HttpPost]
-
     public IActionResult AddToCart(WebShopViewModel webShopViewModel)
     {
         int amountOfPacksToAdd = webShopViewModel.AmountOfPacksToAdd;
 
-        sessionService.StoreCartPacks(HttpContext.Session,amountOfPacksToAdd);
+        _sessionService.StoreCartPacks(HttpContext.Session,amountOfPacksToAdd);
 
         return RedirectToAction("BuyBoosterPack");
     }
     
+    
     public IActionResult CleanCart()
     {
-        sessionService.ClearSession(HttpContext.Session);
+        _sessionService.ClearSession(HttpContext.Session);
         
         return RedirectToAction("BuyBoosterPack");
     }
@@ -72,8 +70,8 @@ public class WebshopController : Controller {
     public IActionResult BuyPacksInCart(WebShopViewModel webShopViewModel)
     {
         string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
-        int currentCoinBalance = coinService.GetUserCoinBalance(userId);
-        int currentAmountOfPacksInCart = sessionService.GetAmountOfPacksCart(HttpContext.Session);
+        int currentCoinBalance = _userCoinService.GetUserCoinBalance(userId);
+        int currentAmountOfPacksInCart = _sessionService.GetAmountOfPacksCart(HttpContext.Session);
         int currentBoosterPackPrice = _BoosterPackPrice;
         int? totalCartPrice = currentBoosterPackPrice * currentAmountOfPacksInCart;
         
@@ -85,18 +83,18 @@ public class WebshopController : Controller {
         else
         {
             // Decrease coin balance
-            coinService.DecreaseUserCoinBalance(userId,totalCartPrice);
+            _userCoinService.DecreaseUserCoinBalance(userId,totalCartPrice);
             
             // Buy the amount of packs if possible
-            packService.AddPackToUser(userId,currentAmountOfPacksInCart);
+            _packService.AddPackToUser(userId,currentAmountOfPacksInCart);
             
             // Clean Cart
-            sessionService.ClearSession(HttpContext.Session);
+            _sessionService.ClearSession(HttpContext.Session);
         }
         
-        webShopViewModel.CoinBalance = coinService.GetUserCoinBalance(userId);
+        webShopViewModel.CoinBalance = _userCoinService.GetUserCoinBalance(userId);
         webShopViewModel.BoosterPackPrice = _BoosterPackPrice;
-        webShopViewModel.AmountOfPacksInCart = sessionService.GetAmountOfPacksCart(HttpContext.Session);
+        webShopViewModel.AmountOfPacksInCart = _sessionService.GetAmountOfPacksCart(HttpContext.Session);
         
         return View("BuyBoosterPack", webShopViewModel);
     }
