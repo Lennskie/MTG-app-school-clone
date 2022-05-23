@@ -25,7 +25,7 @@ namespace mtg_app.Controllers
         {
             string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
-            List<Card> testList = new List<Card>(); //to change to the service
+            //List<Card> testList = convertList(userid); //had to remove this because the cleaner code makes for a stack overflow
 
             return View(new CollectionViewModel
             {
