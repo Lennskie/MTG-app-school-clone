@@ -49,6 +49,7 @@ public class WebshopController : Controller {
 
     
     [HttpPost]
+    [Route("[action]")]
     public IActionResult AddToCart(WebShopViewModel webShopViewModel)
     {
         int amountOfPacksToAdd = webShopViewModel.AmountOfPacksToAdd;
@@ -59,6 +60,7 @@ public class WebshopController : Controller {
     }
     
     
+    [Route("[action]")]
     public IActionResult CleanCart()
     {
         _sessionService.ClearSession(HttpContext.Session);
@@ -66,7 +68,8 @@ public class WebshopController : Controller {
         return RedirectToAction("BuyBoosterPack");
     }
 
-
+    
+    [Route("[action]")]
     public IActionResult BuyPacksInCart(WebShopViewModel webShopViewModel)
     {
         string? userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
