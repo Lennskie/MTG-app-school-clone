@@ -130,10 +130,10 @@ namespace mtg_app.Areas.Identity.Pages.Account
 
                     var userId = await _userManager.GetUserIdAsync(user);
 
-                    CoinService coinService = new CoinService();
+                    UserCoinService coinService = new UserCoinService();
                     coinService.CreateUserCoinForUser(userId);
 
-                    PackService packService = new PackService();
+                    UserPackService packService = new UserPackService();
                     packService.CreateUserPackForUser(userId);
 
 

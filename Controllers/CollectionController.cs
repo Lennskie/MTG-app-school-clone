@@ -1,4 +1,5 @@
 using System.Security.Claims;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mtg_app.Models.Collection.OpenPacks;
 using mtg_lib.Library.Models;
@@ -15,10 +16,11 @@ namespace mtg_app.Controllers
     {
         
         private readonly CardService _cardService = new CardService();
-        private readonly PackService _packService = new PackService();
+        private readonly UserPackService _packService = new UserPackService();
         private readonly UserCardService _userCardService = new UserCardService();
         
-        [Route("[action]")]
+        [Authorize]
+        [Route("/collection")]
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
@@ -31,10 +33,10 @@ namespace mtg_app.Controllers
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
                 
-                Power = _cardService.getPower(),
-                Thoughness = _cardService.getThoughness(),
-                Rarity = _cardService.getRarity(),
-                ManaCost = _cardService.getManaCosts(),
+                Power = _cardService.GetPower(),
+                Thoughness = _cardService.GetThoughness(),
+                Rarity = _cardService.GetRarity(),
+                ManaCost = _cardService.GetManaCosts(),
                 Cards = _cardService.GetSetAmountOfCards(50).Select(c => new CollectionCardViewModel
                 {
                     CardId = c.MtgId,
@@ -48,6 +50,7 @@ namespace mtg_app.Controllers
         }
 
         
+        [Authorize]
         [Route("[action]")]
         public IActionResult Packs()
         {
@@ -63,6 +66,7 @@ namespace mtg_app.Controllers
         }
         
 
+        [Authorize]
         [Route("packs/[action]")]
         public IActionResult OpenPack()
         {

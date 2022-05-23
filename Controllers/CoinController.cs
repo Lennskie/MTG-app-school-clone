@@ -1,13 +1,8 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
+
 using System.Security.Claims;
-using System.Threading.Tasks;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using mtg_app.Models.Coin;
-using mtg_lib.Library.Models;
 using mtg_lib.Library.Services;
 
 namespace mtg_app.Controllers
@@ -17,19 +12,18 @@ namespace mtg_app.Controllers
     public class CoinController : Controller
     {
         
-        CoinService coinService = new CoinService();
-        //private readonly SignInManager<IdentityUser> _signInManager = new SignInManager<IdentityUser>();
+        private readonly UserCoinService _userCoinService = new UserCoinService();
 
+        
         [Authorize]
         [Route("")]
-        [Route("[action]")]
         public IActionResult Index()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
             
-            bool receivedFreeCoins = coinService.CheckIfReceivedDefaultCoins(userId);
-            bool receivedDailyCoins = coinService.CheckDailyCoinsClaimed(userId);
-            int userCoinBalance = coinService.GetUserCoinBalance(userId);
+            bool receivedFreeCoins = _userCoinService.CheckIfReceivedDefaultCoins(userId);
+            bool receivedDailyCoins = _userCoinService.CheckDailyCoinsClaimed(userId);
+            int userCoinBalance = _userCoinService.GetUserCoinBalance(userId);
             
             
             return View(new CoinViewModel
@@ -40,28 +34,26 @@ namespace mtg_app.Controllers
             });
         }
 
-
-        // /coin/freecoins/
+        
         [Authorize]
         [Route("[action]")]
         public IActionResult ReceiveFreeCoins()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            coinService.ReceiveDefaultCoins(userId);
+            _userCoinService.ReceiveDefaultCoins(userId);
             
             return RedirectToAction("Index");
         }
 
         
-        // /coin/receivedailycoins
         [Authorize]
         [Route("[action]")]
         public IActionResult ReceiveDailyCoins()
         {
             var userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
 
-            coinService.AddDailyCoins(userId);
+            _userCoinService.AddDailyCoins(userId);
 
             return RedirectToAction("Index");
         }
