@@ -13,7 +13,7 @@ namespace mtg_app.Controllers
         CardService cardService = new CardService();
         [Authorize]
 
-        public IActionResult SingleCard(string Name)
+        public IActionResult SearchCard(string Name)
         {
             return View(new CardsViewModel
             {
