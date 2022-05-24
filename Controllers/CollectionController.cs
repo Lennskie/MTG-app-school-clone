@@ -138,5 +138,34 @@ namespace mtg_app.Controllers
                 }).ToList()
             });
         }
+
+        [Route("FilterCollectionCard/")]
+        [Authorize]
+        public IActionResult FilterCollectionCard(string rarity_code, string converted_mana_cost, string power, string thoughness)
+        {
+            string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+
+            return View(new CollectionViewModel
+            {
+                PageTitle = "Cards",
+                ColumnCardName = "Card Name",
+                ColumnCardType = "Card Type",
+                ColumnCardVariations = "Card Variations",
+                ColumnCardInCollection = "Card Collection Status",
+                
+                Power = _cardService.GetPower(),
+                Thoughness = _cardService.GetThoughness(),
+                Rarity = _cardService.GetRarity(),
+                ManaCost = _cardService.GetManaCosts(),
+                Cards = _userCardService.GetCardsByFilters(rarity_code, converted_mana_cost, power, thoughness, userId).Select(c => new CollectionCardViewModel
+                {
+                    CardId = c.MtgId,
+                    Name = c.Name,
+                    Type = c.Type,
+                    Variations = 0,
+                    InCollection = true //no service call here because everything displayed here is part from your collection
+                }).ToList()
+            });
+        }
     }
 }
