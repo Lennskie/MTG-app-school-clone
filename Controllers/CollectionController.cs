@@ -39,14 +39,13 @@ namespace mtg_app.Controllers
                 Thoughness = _cardService.GetThoughness(),
                 Rarity = _cardService.GetRarity(),
                 ManaCost = _cardService.GetManaCosts(),
-                Cards = _userCardService.GetUserCardsForUser(userId).Select(c => new CollectionCardViewModel
+                Cards = _userCardService.retrieveCardsInUserCollection(userId).Select(c => new CollectionCardViewModel
                 {
-                    CardId = (_cardService.GetCardFromUserTableId(c.CardId.ToString())).MtgId,
-                    Name = (_cardService.GetCardFromUserTableId(c.CardId.ToString())).Name,
-                    Type = (_cardService.GetCardFromUserTableId(c.CardId.ToString())).Type,
-                    // TODO: Dynamically decide on the amount of variations for a card
+                    CardId = c.MtgId,
+                    Name = c.Name,
+                    Type = c.Type,
                     Variations = 0,
-                    InCollection = _userCardService.CheckPrecenceCardForUser(userId,(_cardService.GetCardFromUserTableId(c.CardId.ToString())).MtgId)
+                    InCollection = true
                 }).ToList()
             });
         }
