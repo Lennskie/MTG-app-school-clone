@@ -14,9 +14,7 @@ public class CardsViewModel
     public string? ColumnCardPower { get; set; }
     
     public string? ColumnCardRarity { get; set; }
-    
-    public string? ColumnCardVariations { get; set; }
-    
+
     public string? ColumnCardInCollection { get; set; }
     
     public List<CardViewModel>? Cards { get; set; }

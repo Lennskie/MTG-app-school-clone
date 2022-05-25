@@ -30,8 +30,6 @@ namespace mtg_app.Controllers
                 ColumnCardManaCost = "Card Mana Cost",
                 ColumnCardPower = "Card Power",
                 
-                
-                ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
                 
                 Power = cardService.GetPower(),
@@ -49,7 +47,6 @@ namespace mtg_app.Controllers
                     
                     Type = c.Type,
                     // TODO: Dynamically decide on the amount of variations for a card
-                    Variations = 0,
                     InCollection = false
                 }).ToList()
             });

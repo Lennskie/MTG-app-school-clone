@@ -20,7 +20,6 @@ namespace mtg_app.Controllers
                 PageTitle = "Cards",
                 ColumnCardName = "Card Name",
                 ColumnCardType = "Card Type",
-                ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
                 Power = _cardService.GetPower(),
                 Thoughness = _cardService.GetThoughness(),
@@ -32,7 +31,6 @@ namespace mtg_app.Controllers
                     Name = c.Name,
                     Type = c.Type,
                     // TODO: Dynamically decide on the amount of variations for a card
-                    Variations = 0,
                     InCollection = false
                 }).ToList()
             });
