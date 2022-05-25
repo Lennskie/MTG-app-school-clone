@@ -15,12 +15,12 @@ public class CardsViewModel
     
     public List<CardViewModel>? Cards { get; set; }
 
-    public List<int> Power { get; set; }
+    public List<int>? Power { get; set; }
 
-    public List<int> Thoughness { get; set; }
+    public List<int>? Thoughness { get; set; }
 
-    public List<int> ManaCost { get; set; }
+    public List<int>? ManaCost { get; set; }
 
-    public List<String> Rarity { get; set; }
+    public List<String>? Rarity { get; set; }
     
 }

@@ -13,6 +13,10 @@
 <body>
 
 <div id="card_carousel" >
+
+    @{
+        System.Diagnostics.Debug.Assert(@Model.Cards != null, "@Model.Cards != null");
+    }
     @foreach (var card in @Model.Cards)
     {
         <div id="carousel_item" class="border-2 border-dark p-2 mb-2" >

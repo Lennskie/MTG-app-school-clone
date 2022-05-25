@@ -13,7 +13,7 @@
 </header>
 
 <body>
-    @{Html.RenderPartial("_FilterPartial");}    
+    @{await Html.RenderPartialAsync("_FilterPartial");}    
     <div>
         <table class="table">
             <thead>
@@ -25,8 +25,12 @@
                 </tr>
             </thead>
             <tbody>
-                @foreach (var card in Model.Cards) {
-                    Html.RenderPartial("_CardsPartial", card);
+
+            @{
+                System.Diagnostics.Debug.Assert(Model.Cards != null, "Model.Cards != null");
+            }
+            @foreach (var card in Model.Cards) {
+                    await Html.RenderPartialAsync("_CardsPartial", card);
                 }
             </tbody>
         </table>
