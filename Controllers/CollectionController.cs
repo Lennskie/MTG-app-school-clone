@@ -156,8 +156,13 @@ namespace mtg_app.Controllers
                 PageTitle = "Cards",
                 ColumnCardName = "Card Name",
                 ColumnCardType = "Card Type",
-                ColumnCardInCollection = "Card Collection Status",
                 
+                ColumnCardRarity = "Card Rarity",
+                ColumnCardManaCost = "Card Mana Cost",
+                ColumnCardPower = "Card Power",
+                
+                ColumnCardInCollection = "Card Collection Status",
+
                 Power = _cardService.GetPower(),
                 Thoughness = _cardService.GetThoughness(),
                 Rarity = _cardService.GetRarity(),
@@ -167,6 +172,9 @@ namespace mtg_app.Controllers
                     CardId = c.MtgId,
                     Name = c.Name,
                     Type = c.Type,
+                    Rarity = c.RarityCode,
+                    ManaCost = c.ConvertedManaCost,
+                    Power = c.Power,
                     InCollection = true //no service call here because everything displayed here is part from your collection
                 }).ToList()
             });

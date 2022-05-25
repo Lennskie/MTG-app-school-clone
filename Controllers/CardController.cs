@@ -46,7 +46,6 @@ namespace mtg_app.Controllers
                     Power = c.Power,
                     
                     Type = c.Type,
-                    // TODO: Dynamically decide on the amount of variations for a card
                     InCollection = false
                 }).ToList()
             });
