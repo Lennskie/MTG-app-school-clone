@@ -42,4 +42,10 @@ body {
   justify-content: space-between;
 }
 
+#filter_container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
 .container{display:flex;  justify-content: center;  align-items: center; } .c1,.c2{display: block; margin: 0 1rem 0 1rem;}

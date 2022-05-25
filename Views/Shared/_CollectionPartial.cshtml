@@ -2,13 +2,15 @@
 
 
 <tr class="text-center">
-    <td><a asp-controller="Card" asp-action="SingleCard" asp-route-cardId="@Model.CardId">@Model.Name</a></td>
+    <td>
+        <a asp-controller="Card" asp-action="SingleCard" asp-route-cardId="@Model.CardId">@Model.Name</a>
+    </td>
     <td>@Model.Type</td>
-    
+
     <td>@Model.Rarity</td>
     <td>@Model.ManaCost</td>
     <td>@Model.Power</td>
-    
+
     @{
         if (@Model.InCollection)
         {
@@ -19,9 +21,4 @@
             <td>❌ </td>
         }
     }
-    
-    
-
-    <!--extra td here for "on the market", see the Collection.cshtml page-->
-
 </tr>
