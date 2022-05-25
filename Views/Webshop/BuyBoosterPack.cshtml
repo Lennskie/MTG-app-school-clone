@@ -1,48 +1,111 @@
 
-@using mtg_app.Models.WebShop
 @model mtg_app.Models.WebShop.WebShopViewModel;
 
-<script>
-    function calcTotal(){
-        var quantity = document.getElementById('amount').value;
-        document.getElementById('total').innerHTML = quantity * 100;
-    }
-</script>
-<h1>Buying Booster Packs</h1>
+
+
+<h1 class="text-center mb-5" >Buying Booster Packs</h1>
 <div>
     
-    <div id="shop_info" >
+    <div id="container" >
+        <div>
+            <div>
+                <p><strong class="fs-3"> Coin Balance:</strong></p>
+                <p class="fs-4 fw-bold text-success ">@Model.CoinBalance</p>
+            </div>
+            
+            <div>
+                <form asp-controller="Webshop" asp-action="AddToCart" method="Post" class="">
+        
+                    <div class="form-group flex flex-row mb-2">
+                        <label for="AmountOfPacksToAdd"><strong class="fs-3">Quantity:</strong></label>
+                        <input asp-for="AmountOfPacksToAdd" id="AmountOfPacksToAdd" class="form-control" required>
+                    </div>
+        
+                    <div class="form-group">
+                        <input type="submit" value="Add to Cart" class="btn btn-secondary"/>
+                    </div>
+        
+                </form>
+            </div>
+
+
+        </div>
+
+        <div>
+            
+            <div>
+                <p><strong class="fs-3" >Booster Pack price:</strong></p>
+                <p class="fs-4 fw-bold text-danger">@Model.BoosterPackPrice</p>                
+            </div>
+            
+            <div>
+                <div>
+                    <p><strong class="fs-3">Packs in cart</strong></p>
+                    @{
+                        if (@Model.AmountOfPacksInCart != null)
+                        {
+                            <p>@Model.AmountOfPacksInCart</p>
+                        }
+                        else
+                        {
+                            <p>No Packs in Cart!</p>
+                        }
+                    }
+
+                </div>
+
+                <div id="buying_cart">
+                    <div>
+                        <form asp-controller="Webshop" asp-action="BuyPacksInCart" method="Post">
+
+                            <div class="form-group">
+                                <input type="submit" value="Buy Cart" class="btn btn-success me-2"/>
+                                <span asp-validation-for="AmountOfPacksInCart" class="text-danger"></span>
+                            </div>
+
+                        </form>
+                    </div>
+
+                    <div>
+                        <a asp-action="CleanCart" class="ms-2 btn btn-warning">Clean Cart!</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div> 
+    
+    
+    
+    
+
+    @*
+    <div id="shop_info">
         <div>
             <p><strong> Coin Balance:</strong></p>
-            <p>@Model.CoinBalance</p>
+            <p class="fs-6 fw-bold text-success">@Model.CoinBalance</p>
         </div>
+
         <div>
             <p><strong>Booster Pack price:</strong></p>
-            <p>@Model.BoosterPackPrice</p>
-        </div>        
+            <p class="fs-6 fw-bold text-danger">@Model.BoosterPackPrice</p>
+        </div>
     </div>
-    
+
     <div id="buying">
         <form asp-controller="Webshop" asp-action="AddToCart" method="Post" class="">
 
             <div class="form-group flex flex-row mb-2">
                 <label for="AmountOfPacksToAdd"><strong>Quantity:</strong></label>
-                @* <input asp-for="AmountOfPacksToAdd" class="form-control" type="number" id="amount" name="amount" value="1" min="1" oninput="calcTotal()" required> *@
                 <input asp-for="AmountOfPacksToAdd" id="AmountOfPacksToAdd" class="form-control" required>
             </div>
 
-
-            @*<div class="form-group">
-                <label for="total">Total: </label>
-                <label for="total" id="total"></label>
-            </div>*@
-
             <div class="form-group">
-                <input type="submit" value="Add to Cart" class="btn btn-primary"/>
+                <input type="submit" value="Add to Cart" class="btn btn-secondary"/>
             </div>
 
         </form>
-        
+
         <div>
             <div>
                 <p><strong>Packs in cart</strong></p>
@@ -58,48 +121,26 @@
                 }
 
             </div>
-            
+
             <div id="buying_cart">
-                    <div>
-                        <form asp-controller="Webshop" asp-action="BuyPacksInCart" method="Post">
-                
-                            <div class="form-group">
-                                <input type="submit" value="Buy Cart" class="btn btn-primary me-2"/>
-                                <span asp-validation-for="AmountOfPacksInCart" class="text-danger"></span>
-                            </div>
-                
-                        </form>
-                    </div>
-                    
-                    <div>
-                        <a asp-action="CleanCart" class="ms-2 btn btn-primary">Clean Cart!</a>
-                    </div>
+                <div>
+                    <form asp-controller="Webshop" asp-action="BuyPacksInCart" method="Post">
+
+                        <div class="form-group">
+                            <input type="submit" value="Buy Cart" class="btn btn-success me-2"/>
+                            <span asp-validation-for="AmountOfPacksInCart" class="text-danger"></span>
+                        </div>
+
+                    </form>
+                </div>
+
+                <div>
+                    <a asp-action="CleanCart" class="ms-2 btn btn-warning">Clean Cart!</a>
+                </div>
             </div>
         </div>
-
- 
-        
-        
-        
-        
     </div>
-    
-    
-    @*<div>
-        <form asp-controller="Webshop" asp-action="BuyPacksInCart" method="Post">
-
-            <div class="form-group">
-                <input type="submit" value="Buy Cart" class="btn btn-primary"/>
-                <span asp-validation-for="AmountOfPacksInCart" class="text-danger"></span>
-            </div>
-
-        </form>
-    </div>
-    
-    <div>
-        <a asp-action="CleanCart" class="btn btn-primary">Clean Cart!</a>
-    </div>*@
+    *@
 
 
 </div>
-@*Footer met master view*@

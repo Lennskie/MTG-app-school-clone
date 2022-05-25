@@ -7,15 +7,15 @@
 <header>
     
     <div class="text-center">
-        <h1 class="display-4">Coin Back</h1>
+        <h1 class="display-4 fw-bold">Coin Bank</h1>
     </div>
     
 </header>
 
 <body>
 <div>
-    <p>Current Coin Balance:</p>
-    <p class="text-xl" >@Model.UserCoinBalance</p>
+    <p class="fs-3" >Current Coin Balance:</p>
+    <p class="fs-5 text-success fw-bold" >@Model.UserCoinBalance</p>
 </div>
 
 
@@ -23,16 +23,16 @@
     @{
         if (!@Model.ReceivedDefaultCoins)
         {
-           <a asp-action="ReceiveFreeCoins">Receive Starting Coins!</a> 
+           <a asp-action="ReceiveFreeCoins" class="btn btn-primary" >Receive Starting Coins!</a> 
         }
 
         if (!@Model.ReceivedDailyCoins)
         {
-            <a asp-action="ReceiveDailyCoins">Receive Daily Coins! </a>
+            <a asp-action="ReceiveDailyCoins" class="btn btn-primary" >Receive Daily Coins! </a>
         }
         else
         {
-            <p>You have already colleted your Daily Coins!</p>
+            <p class="text-danger" >You have already collected your Daily Coins!</p>
         }
     }
 </div>

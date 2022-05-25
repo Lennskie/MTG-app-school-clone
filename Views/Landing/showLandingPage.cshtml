@@ -1,14 +1,14 @@
 @model mtg_app.Models.LandingViewModel
 
 @*Header met master view*@
-<h1>Welcome</h1>
+<h1 class="fw-bold text-black text-center">Welcome</h1>
 
 @{
     System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
 }
 @if(User.Identity.IsAuthenticated)
 {
-    <p>
+    <p class="fs-4 text-center fw-bold text-success" >
         Congrats, you are authenticated!
     </p> 
 }

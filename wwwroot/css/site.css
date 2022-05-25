@@ -31,28 +31,10 @@ body {
   border-radius: 5px;
 }
 
-#shop_info {
+#container {
   display: flex;
-  justify-content: space-between;
-}
-
-#shop_info strong {
-  font-size: 1.3rem;
-  color: black;
-}
-
-#shop_info p {
-  font-size: 1.1rem;
-  color: #f00d4d;
-}
-
-#buying {
-  display: flex;
-  justify-content: space-between;
-}
-
-#buying_cart strong {
-  font-size: 1.2rem;
+  justify-content: space-around;
+  width: 100vW;
 }
 
 #buying_cart {
