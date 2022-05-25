@@ -19,7 +19,7 @@
         id="filter_container" class="">
         <div>
             <label for="rarity_code" class="fs-6 fw-bold">Rarity:</label>
-            <select id="rarity_code" name="rarity_code" class="form-select">
+            <select id="rarity_code" name="rarity_code" class="form-select" form="filter_container">
                 <option value=null></option>
                 @foreach (var rarityLevels in Model.Rarity)
                 {
@@ -30,7 +30,7 @@
 
         <div>
             <label for="converted_mana_cost" class="fs-6 fw-bold">Mana cost:</label>
-            <select id="converted_mana_cost" name="converted_mana_cost" class="form-select">
+            <select id="converted_mana_cost" name="converted_mana_cost" class="form-select" form="filter_container">
                 <option value=null></option>
                 @foreach (var manaCostLevels in Model.ManaCost)
                 {
@@ -41,7 +41,7 @@
 
         <div>
             <label for="power" class="fs-6 fw-bold">Power:</label>
-            <select id="power" name="power" form="filter" class="form-select">
+            <select id="power" name="power" form="filter_container" class="form-select">
                 <option value=null></option>
                 @foreach (var powerLevels in Model.Power)
                 {
@@ -52,7 +52,7 @@
 
         <div>
             <label for="thoughness" class="fs-6 fw-bold">Thoughness:</label>
-            <select id="thoughness" name="thoughness" form="filter" class="form-select">
+            <select id="thoughness" name="thoughness" form="filter_container" class="form-select">
                 <option value=null></option>
                 @foreach (var thoughnessLevels in Model.Thoughness)
                 {
@@ -61,7 +61,7 @@
             </select>
         </div>
 
-        <input type="submit" value="Filter" class="btn btn-secondary ">
+        <input type="submit" value="Filter" class="btn btn-secondary" form="filter_container">
         
     </form>
 </div>
