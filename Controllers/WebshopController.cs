@@ -76,7 +76,7 @@ public class WebshopController : Controller {
         int currentCoinBalance = _userCoinService.GetUserCoinBalance(userId);
         int currentAmountOfPacksInCart = _sessionService.GetAmountOfPacksCart(HttpContext.Session);
         int currentBoosterPackPrice = _BoosterPackPrice;
-        int? totalCartPrice = currentBoosterPackPrice * currentAmountOfPacksInCart;
+        int totalCartPrice = currentBoosterPackPrice * currentAmountOfPacksInCart;
         
 
         if (totalCartPrice > currentCoinBalance)

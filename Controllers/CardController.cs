@@ -55,7 +55,7 @@ namespace mtg_app.Controllers
             if (card?.OriginalImageUrl == null)
             {
                 //Console.WriteLine("Retrieving new imageUrl");
-                card.OriginalImageUrl =  cardService.GetImageFromVariations(card);
+                if (card != null) card.OriginalImageUrl = cardService.GetImageFromVariations(card);
             }
             
             

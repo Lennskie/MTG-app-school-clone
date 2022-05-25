@@ -39,7 +39,7 @@ namespace mtg_app.Controllers
                 Thoughness = _cardService.GetThoughness(),
                 Rarity = _cardService.GetRarity(),
                 ManaCost = _cardService.GetManaCosts(),
-                Cards = _userCardService.retrieveCardsInUserCollection(userId).Select(c => new CollectionCardViewModel
+                Cards = _userCardService.RetrieveCardsInUserCollection(userId).Select(c => new CollectionCardViewModel
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
@@ -93,7 +93,7 @@ namespace mtg_app.Controllers
                 ImageUrl = c.OriginalImageUrl
             }).ToList();
 
-            IEnumerable<string> listIds = filteredCardsInPack.Select(c => c.CardId);
+            IEnumerable<string?> listIds = filteredCardsInPack.Select(c => c.CardId);
 
             _userCardService.AddCardsToUserCards(userId,listIds);
             _packService.DecreasePackCountUser(userId);

@@ -24,7 +24,8 @@
                 <dt>Variations:</dt>
 
                 @{
-                    if (@Model.Variations.Capacity != 0)
+                    System.Diagnostics.Debug.Assert(Model.Variations != null, "Model.Variations != null");
+                    if (Model.Variations.Capacity != 0)
                     {
                         <ul>
                                 @foreach (var mtgid in @Model.Variations)

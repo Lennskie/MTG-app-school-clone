@@ -3,6 +3,9 @@
 @*Header met master view*@
 <h1>Welcome</h1>
 
+@{
+    System.Diagnostics.Debug.Assert(User.Identity != null, "User.Identity != null");
+}
 @if(User.Identity.IsAuthenticated)
 {
     <p>
