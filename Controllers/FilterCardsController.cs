@@ -21,7 +21,11 @@ namespace mtg_app.Controllers
                 PageTitle = "Cards",
                 ColumnCardName = "Card Name",
                 ColumnCardType = "Card Type",
-                ColumnCardVariations = "Card Variations",
+                
+                ColumnCardRarity = "Card Rarity",
+                ColumnCardManaCost = "Card Mana Cost",
+                ColumnCardPower = "Card Power",
+                
                 ColumnCardInCollection = "Card Collection Status",
                 Power = cardService.GetPower(),
                 Thoughness = cardService.GetThoughness(),
@@ -32,7 +36,11 @@ namespace mtg_app.Controllers
                     CardId = c.MtgId,
                     Name = c.Name,
                     Type = c.Type,
-                    Variations = 0,
+                    
+                    Rarity = c.RarityCode,
+                    ManaCost = c.ConvertedManaCost,
+                    Power = c.Power,
+                    
                     InCollection = false //check has to be added here
                 }).ToList()
             });

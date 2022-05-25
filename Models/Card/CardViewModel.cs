@@ -7,8 +7,12 @@ public class CardViewModel
     public string? Name { get; set; }
     public string? Type { get; set; }
     
-    public int Variations { get; set; }
+    public string? Rarity { get; set; }
     
+    public string? ManaCost { get; set; }
+    
+    public string? Power { get; set; }
+
     public bool InCollection { get; set; }
     
 }
