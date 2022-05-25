@@ -25,8 +25,15 @@ namespace mtg_app.Controllers
                 PageTitle = "Cards",
                 ColumnCardName = "Card Name",
                 ColumnCardType = "Card Type",
+                
+                ColumnCardRarity = "Card Rarity",
+                ColumnCardManaCost = "Card Mana Cost",
+                ColumnCardPower = "Card Power",
+                
+                
                 ColumnCardVariations = "Card Variations",
                 ColumnCardInCollection = "Card Collection Status",
+                
                 Power = cardService.GetPower(),
                 Thoughness = cardService.GetThoughness(),
                 Rarity = cardService.GetRarity(),
@@ -35,6 +42,11 @@ namespace mtg_app.Controllers
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
+                    
+                    Rarity = c.RarityCode,
+                    ManaCost = c.ConvertedManaCost,
+                    Power = c.Power,
+                    
                     Type = c.Type,
                     // TODO: Dynamically decide on the amount of variations for a card
                     Variations = 0,
