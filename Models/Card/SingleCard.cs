@@ -9,6 +9,7 @@ public class SingleCard
     
     public string? Type { get; set; }
     
+    public int? CardsInCollection { get; set; }
     
     public List<string>? Variations { get; set; }
     

@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using mtg_app.Models.Card;
@@ -12,7 +13,8 @@ namespace mtg_app.Controllers
     public class CardController : Controller
     {
 
-        CardService cardService = new CardService();
+        public readonly CardService _cardService = new CardService();
+        public readonly UserCardService _userCardService = new UserCardService();
 
 
         // Route: /card/
@@ -32,11 +34,11 @@ namespace mtg_app.Controllers
                 
                 ColumnCardInCollection = "Card Collection Status",
                 
-                Power = cardService.GetPower(),
-                Thoughness = cardService.GetThoughness(),
-                Rarity = cardService.GetRarity(),
-                ManaCost = cardService.GetManaCosts(),
-                Cards = cardService.GetSetAmountOfCards(50).Select(c => new CardViewModel
+                Power = _cardService.GetPower(),
+                Thoughness = _cardService.GetThoughness(),
+                Rarity = _cardService.GetRarity(),
+                ManaCost = _cardService.GetManaCosts(),
+                Cards = _cardService.GetSetAmountOfCards(50).Select(c => new CardViewModel
                 {
                     CardId = c.MtgId,
                     Name = c.Name,
@@ -54,16 +56,30 @@ namespace mtg_app.Controllers
 
 
         // Route: /card/<cardId>
-        [Authorize]
         [Route("/cards/{cardId}")]
         public IActionResult SingleCard(string cardId)
         {
-            Card? card = cardService.GetCardFromId(cardId);
+            Card? card = _cardService.GetCardFromId(cardId);
+            
+            int? cardsInUserCollection = 0;
+
+            if (User.Identity.IsAuthenticated)
+            {
+                string userId = User.FindFirstValue(ClaimTypes.NameIdentifier);
+                IEnumerable<UserCard> userCards = _userCardService.GetUserCardsForUser(userId);
+                UserCard selectedCard = userCards.Where(c => c.CardId == card.Id).FirstOrDefault();
+                if (selectedCard != null)
+                {
+                    cardsInUserCollection = selectedCard.Cards;
+                }
+
+            } 
+            
+            
 
             if (card?.OriginalImageUrl == null)
             {
-                //Console.WriteLine("Retrieving new imageUrl");
-                if (card != null) card.OriginalImageUrl = cardService.GetImageFromVariations(card);
+                card.OriginalImageUrl = _cardService.GetImageFromVariations(card);
             }
             
             
@@ -72,7 +88,8 @@ namespace mtg_app.Controllers
                 ImageUrl = card?.OriginalImageUrl,
                 Name = card?.Name,
                 Type = card?.Type,
-                Variations = cardService.RetrieveMtgIdsFromString(card)
+                CardsInCollection = cardsInUserCollection,
+                Variations = _cardService.RetrieveMtgIdsFromString(card)
             });
 
 

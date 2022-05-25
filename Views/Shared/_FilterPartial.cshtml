@@ -1,55 +1,67 @@
-
-
-<div class="container">
-        <div class="c1">
-            <form 
-                asp-controller="SearchCard"
-                asp-action="SearchCard"
-                method="GET"
-                id="search">
-                <input type="text" name="Name" value="" form="search"/>
-                <input type="submit" form="search" value="Search">
-            </form>
-        </div>
-            <div class="c2">
-                <form 
-                    asp-controller="FilterCards"
-                    asp-action="FilterCards"
-                    method="GET"
-                    id="filter">
-                    <label for="rarity_code">Rarity:</label>
-                    <select id="rarity_code" name="rarity_code" form="filter">
-                        <option value=null></option>
-                        @foreach (var rarityLevels in Model.Rarity)
-                        {
-                            <option value=@rarityLevels>@rarityLevels</option>
-                        }
-                    </select>
-                    <label for="converted_mana_cost">Mana cost:</label>
-                    <select id="converted_mana_cost" name="converted_mana_cost" form="filter">
-                        <option value=null></option>
-                        @foreach (var manaCostLevels in Model.ManaCost)
-                        {
-                            <option value=@manaCostLevels>@manaCostLevels</option>
-                        }
-                    </select>
-                    <label for="power">Power:</label>
-                    <select id="power" name="power" form="filter">
-                        <option value=null></option>
-                        @foreach (var powerLevels in Model.Power)
-                        {
-                            <option value=@powerLevels>@powerLevels</option>
-                        }
-                    </select>
-                    <label for="thoughness">Thoughness:</label>
-                    <select id="thoughness" name="thoughness" form="filter">
-                        <option value=null></option>
-                        @foreach (var thoughnessLevels in Model.Thoughness)
-                        {
-                            <option value=@thoughnessLevels>@thoughnessLevels</option>
-                        }
-                    </select>
-                    <input type="submit" form="filter" value="Filter">
-                </form>
+<div class="container flex flex-row">
+    <div class="">
+        <form
+            asp-controller="SearchCard"
+            asp-action="SearchCard"
+            method="GET"
+            id="search">
+            <div class="container flex-row">
+                <input type="text" name="Name" value="" class="form-control"/>
+                <input type="submit" form="search" value="Search" class="btn btn-primary ms-2">
             </div>
+
+        </form>
     </div>
+    <form
+        asp-controller="FilterCards"
+        asp-action="FilterCards"
+        method="GET"
+        id="filter_container" class="">
+        <div>
+            <label for="rarity_code" class="fs-6 fw-bold">Rarity:</label>
+            <select id="rarity_code" name="rarity_code" class="form-select">
+                <option value=null></option>
+                @foreach (var rarityLevels in Model.Rarity)
+                {
+                    <option value=@rarityLevels>@rarityLevels</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label for="converted_mana_cost" class="fs-6 fw-bold">Mana cost:</label>
+            <select id="converted_mana_cost" name="converted_mana_cost" class="form-select">
+                <option value=null></option>
+                @foreach (var manaCostLevels in Model.ManaCost)
+                {
+                    <option value=@manaCostLevels>@manaCostLevels</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label for="power" class="fs-6 fw-bold">Power:</label>
+            <select id="power" name="power" form="filter" class="form-select">
+                <option value=null></option>
+                @foreach (var powerLevels in Model.Power)
+                {
+                    <option value=@powerLevels>@powerLevels</option>
+                }
+            </select>
+        </div>
+
+        <div>
+            <label for="thoughness" class="fs-6 fw-bold">Thoughness:</label>
+            <select id="thoughness" name="thoughness" form="filter" class="form-select">
+                <option value=null></option>
+                @foreach (var thoughnessLevels in Model.Thoughness)
+                {
+                    <option value=@thoughnessLevels>@thoughnessLevels</option>
+                }
+            </select>
+        </div>
+
+        <input type="submit" value="Filter" class="btn btn-secondary ">
+        
+    </form>
+</div>

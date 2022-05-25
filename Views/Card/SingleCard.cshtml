@@ -5,33 +5,41 @@
 @model mtg_app.Models.Card.SingleCard
 
 
-<header>
+<header class="fs-4 fw-bold">
     Card Name: @Model.Name
 </header>
 
 <body>
-        <style>
+<style>
             .wrapper{display: flex;}
             .img, .table{display: inline-block; margin-left: 10%;}
         </style>
-    <div class="wrapper">
-        <div class="img" ><img src="@Model.ImageUrl" class="text-left" />  </div>
-        <div class="table">
-            <dl class="text-right">
-                <dt>Type:</dt>
+<div class="wrapper">
+    <div class="img">
+        <img src="@Model.ImageUrl" alt="No Image" class="text-left"/>
+    </div>
+    <div class="table">
+        <dl class="text-right">
+
+            <div>
+                <dt class="fs-5">Type:</dt>
                 <dd>@Model.Type</dd>
-                
-                <dt>Variations:</dt>
+            </div>
+
+            <div>
+                <dt class="fs-5">Variations:</dt>
 
                 @{
                     System.Diagnostics.Debug.Assert(Model.Variations != null, "Model.Variations != null");
                     if (Model.Variations.Capacity != 0)
                     {
                         <ul>
-                                @foreach (var mtgid in @Model.Variations)
-                                {
-                                    <il><a asp-action="SingleCard" asp-route-cardId="@mtgid">Card Variation</a></il>
-                                }
+                            @foreach (var mtgid in @Model.Variations)
+                            {
+                                <il>
+                                    <a asp-action="SingleCard" asp-route-cardId="@mtgid">Card Variation</a>
+                                </il>
+                            }
                         </ul>
                     }
                     else
@@ -39,8 +47,20 @@
                         <dd>This card doesn't have any variants!</dd>
                     }
                 }
-                
-            </dl>
-        </div>
+            </div>
+            
+            @{
+                if (User.Identity.IsAuthenticated)
+                {
+                    <div>
+                        <h2 class="fs-5 fw-bold">Collection Card info:</h2>
+                        <p>Cards In collection: @Model.CardsInCollection</p>
+                    </div>                      
+                }
+            }
+            
+            
+        </dl>
     </div>
+</div>
 </body>
